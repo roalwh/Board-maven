@@ -1,0 +1,58 @@
+
+#application.yml ??
+#??? yml?? ?? application-{??}.yml -> ??? ???
+spring:
+  profiles:
+    active: dev    #???? ???? ??? ????? ??
+    include:     # ??? ?? ??? ? ????
+
+  servlet:
+    #?? ??? ? ?? ??
+    #?? ??? ?? ???..
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+
+  datasource:
+    url: jdbc:mariadb://roalwh.iptime.org:21356/mydb2
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: ex
+    password: 1234
+
+mybatis:
+  mapper-locations: classpath:mybatisMapper/*.xml
+
+---
+# application-dev
+#profile ?? ??
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  sql:
+    init:
+      mode: never
+      # always: embeded db? ?? ?? db ??? spring boot? ???? ?? data.sql schema.sql import.sql? ?? ??
+      # never: data.sql schema.sql import.sql? ???? ??
+      encoding: utf-8
+
+#??? ?? ??
+server :
+  port : 80
+
+
+---
+#application-prod
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:mariadb://
+    driver-class-name: org.mariadb.jdbc.Driver
+    username:
+    password:
+
+---
